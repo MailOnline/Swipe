@@ -263,7 +263,6 @@ function Swipe(container, options) {
       
         
         
-        
       switch (event.type) {
         case 'touchstart': this.start(event); break;
         
@@ -438,6 +437,8 @@ function Swipe(container, options) {
       if (!isScrolling) {
 
         if (isValidSlide && !isPastBounds) {
+          event.stopPropagation();
+
 
           if (direction) {
 
@@ -499,13 +500,11 @@ function Swipe(container, options) {
           
       } else {
       
-          element.removeEventListener('touchmove', events, false);
-          element.removeEventListener('touchend', events, false);
+          element.removeEventListener('MSPointerMove', events, false);
+          element.removeEventListener('MSPointerUp', events, false);
       }
       
-        
-        
-      
+
         
         
 
