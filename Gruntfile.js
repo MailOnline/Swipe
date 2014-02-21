@@ -13,7 +13,7 @@ module.exports = function( grunt ) {
       },
       dist: {
         files: {
-          'build/swipe.min.js': 'swipe.js'
+          'build/Swipe.min.js': 'Swipe.js'
         }
       }
     }
