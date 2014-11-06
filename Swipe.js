@@ -9,6 +9,7 @@
 function Swipe(container, options) {
 
   "use strict";
+  var touchEnabled = true;      
 
   // utilities
   var noop = function() {}; // simple no operation function
@@ -152,7 +153,6 @@ function Swipe(container, options) {
   }
 
   function move(index, dist, speed) {
-
     translate(index, dist, speed);
     slidePos[index] = dist;
 
@@ -260,8 +260,6 @@ function Swipe(container, options) {
   var events = {
 
     handleEvent: function(event) {
-      
-        
         
       switch (event.type) {
         case 'touchstart': this.start(event); break;
@@ -299,10 +297,13 @@ function Swipe(container, options) {
         case 'resize': offloadFn(setup.call()); break;
       }
 
+        
+
       if (options.stopPropagation) event.stopPropagation();
 
     },
     start: function(event) {
+      if (!touchEnabled) return;
       if ( !browser.pointer )  var touches = event.touches[0];
       
  
@@ -342,7 +343,7 @@ function Swipe(container, options) {
 
     },
     move: function(event) {
-     
+      if (!touchEnabled) return;
       // ensure swiping with one touch and not pinching
       if (!browser.pointer && event.touches.length > 1 || event.scale && event.scale !== 1) return
 
@@ -405,6 +406,7 @@ function Swipe(container, options) {
 
     },
     end: function(event) {
+      if (!touchEnabled) return;
 
       // measure duration
       var duration = +new Date - start.time;
@@ -599,6 +601,12 @@ function Swipe(container, options) {
       
       // return total number of slides
       return length;
+    },
+    disableTouch: function (){
+        touchEnabled = false;
+    },
+    enableTouch: function (){
+        touchEnabled = true;      
     },
     kill: function() {
 
