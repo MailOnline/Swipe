@@ -255,7 +255,7 @@ function Swipe(container, options) {
   var start = {};
   var delta = {};
   var isScrolling;
-
+  var resizeFired;
   // setup event capturing
   var events = {
 
@@ -293,8 +293,19 @@ function Swipe(container, options) {
         case 'transitionend':
               offloadFn(this.transitionEnd(event));
               linkHandler.toggleOffPreventClick();
-        break;
-        case 'resize': offloadFn(setup.call()); break;
+            break;
+        case 'resize': 
+            resizeFired = true;
+            offloadFn(setup.call()); 
+            break;
+        case 'orientationchange': // IOS is not firing resize loading videos
+            resizeFired = false;
+            setTimeout(function (){
+                if (!resizeFired){
+                  setup.call()
+                }
+            }, 1000); 
+            break;
       }
 
         
@@ -553,6 +564,7 @@ function Swipe(container, options) {
 
     // set resize event on window
     window.addEventListener('resize', events, false);
+    window.addEventListener('orientationchange', events, false);
 
   } else {
 
@@ -641,6 +653,7 @@ function Swipe(container, options) {
         element.removeEventListener('otransitionend', events, false);
         element.removeEventListener('transitionend', events, false);
         window.removeEventListener('resize', events, false);
+        window.removeEventListener('orientationchange', events, false);
 
       }
       else {
