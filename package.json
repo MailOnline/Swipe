@@ -1,0 +1,29 @@
+{
+  "name": "@mol-fe/swipe",
+  "private": true,
+  "version": "2.0.24",
+  "description": "Swipe events",
+  "main": "Swipe.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MailOnline/Swipe.git"
+  },
+  "keywords": [
+    "swipe",
+    "events"
+  ],
+  "author": "Brad Birdsall",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MailOnline/Swipe/issues"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/mol-conventional-changelog"
+    }
+  },
+  "homepage": "https://github.com/MailOnline/Swipe#readme"
+}
